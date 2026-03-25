@@ -2,7 +2,7 @@
 
 **A research thesis on how the Federal Reserve shifted financial risk from private banks to the public domain — and what that architecture means for American money.**
 
-🔗 **[Read the full thesis →](https://YOUR_USERNAME.github.io/YOUR_REPO_NAME/)**
+🔗 **[Read the full thesis →](https://fawad-liaqat.github.io/Institutionalition-of-Elastic-Currency/)**
 
 ---
 
