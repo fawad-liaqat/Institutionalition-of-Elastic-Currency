@@ -33,8 +33,6 @@ Frames the central question the original architects never answered: who should b
 - Pure HTML, CSS, JavaScript — no framework, no build step
 - [Chart.js](https://www.chartjs.org/) for interactive data visualizations
 - [Newsreader](https://fonts.google.com/specimen/Newsreader) + [DM Sans](https://fonts.google.com/specimen/DM+Sans) via Google Fonts
-- Fully responsive, mobile-friendly layout
-
 ---
 
 ## Data sources
@@ -55,4 +53,4 @@ To deploy on GitHub Pages: **Settings → Pages → Deploy from branch → main 
 
 ---
 
-*Research thesis · Monetary economics & institutional history · ~10 min read*
+*Monetary economics & institutional history*
