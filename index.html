@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Institutionalization of Elastic Currency</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#FAFAF7;--bg2:#F0EFE9;--text:#1A1A18;--muted:#6B6A65;--accent:#8B4513;--accent2:#C75B12;
+--border:#E0DED6;--card:#FFFFFF;--highlight:#FFF8F0;
+}
+body{background:var(--bg);color:var(--text);font-family:'Newsreader',Georgia,serif;line-height:1.78;-webkit-font-smoothing:antialiased}
+.container{max-width:780px;margin:0 auto;padding:40px 24px 80px}
+.hero{padding:60px 0 40px;border-bottom:1px solid var(--border);margin-bottom:48px}
+.hero h1{font-family:'DM Sans',sans-serif;font-size:clamp(28px,4.5vw,42px);font-weight:600;line-height:1.15;letter-spacing:-0.5px;color:var(--text);margin-bottom:16px}
+.hero .subtitle{font-size:18px;color:var(--muted);font-weight:300;line-height:1.5;max-width:620px}
+.hero .meta{margin-top:20px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--muted);letter-spacing:0.3px;text-transform:uppercase}
+.module-label{font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;font-weight:500}
+h2{font-family:'DM Sans',sans-serif;font-size:clamp(22px,3vw,28px);font-weight:600;line-height:1.25;margin-bottom:20px;color:var(--text)}
+h3{font-family:'DM Sans',sans-serif;font-size:18px;font-weight:500;margin:32px 0 12px;color:var(--text)}
+p{margin-bottom:18px;font-size:17px;color:#2A2A28}
+.section{margin-bottom:56px}
+.callout{background:var(--highlight);border-left:3px solid var(--accent);padding:20px 24px;margin:28px 0;border-radius:0 8px 8px 0;font-size:16px;line-height:1.7}
+.callout strong{font-weight:500;color:var(--accent)}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:28px 0}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 20px;text-align:center}
+.stat-card .number{font-family:'DM Sans',sans-serif;font-size:28px;font-weight:600;color:var(--accent2)}
+.stat-card .label{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:0.5px}
+.chart-container{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin:32px 0}
+.chart-container .chart-title{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;margin-bottom:4px}
+.chart-container .chart-subtitle{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted);margin-bottom:16px}
+.chart-wrap{position:relative;width:100%;height:320px}
+.timeline{position:relative;padding-left:28px;border-left:2px solid var(--border);margin:28px 0}
+.timeline-item{position:relative;padding:0 0 28px 20px}
+.timeline-item::before{content:'';position:absolute;left:-34px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:3px solid var(--bg)}
+.timeline-item .year{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--accent);margin-bottom:4px}
+.timeline-item p{margin-bottom:0;font-size:15px}
+.diagram-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 24px;margin:32px 0;text-align:center}
+.multiplier-visual{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;margin:20px 0}
+.deposit-block{background:#E8DDD0;border:1px solid #C9B99A;border-radius:6px;padding:8px 14px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:#5C4A2E;min-width:80px;text-align:center}
+.deposit-block.origin{background:#8B4513;color:#FFF;border-color:#6B3410}
+.arrow-right{color:var(--muted);font-size:18px}
+.paradigm{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0}
+.paradigm-card{border-radius:10px;padding:20px;text-align:center}
+.paradigm-card.heads{background:#F0F7EC;border:1px solid #C5DEB8}
+.paradigm-card.tails{background:#FEF0E7;border:1px solid #F0C4A0}
+.paradigm-card .icon{font-size:28px;margin-bottom:8px}
+.paradigm-card h4{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;margin-bottom:6px}
+.paradigm-card p{font-size:14px;color:var(--muted);margin-bottom:0}
+.footnote{font-size:13px;color:var(--muted);border-top:1px solid var(--border);padding-top:20px;margin-top:48px;font-style:italic}
+.interactive-toggle{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.toggle-btn{font-family:'DM Sans',sans-serif;font-size:13px;padding:6px 16px;border:1px solid var(--border);border-radius:20px;background:var(--card);cursor:pointer;transition:all 0.2s;color:var(--muted)}
+.toggle-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.era-compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0}
+.era-card{border-radius:10px;padding:20px;border:1px solid var(--border)}
+.era-card h4{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;margin-bottom:8px}
+.era-card ul{list-style:none;padding:0}
+.era-card li{font-size:14px;padding:4px 0;color:#2A2A28}
+.era-card li::before{content:'→ ';color:var(--accent)}
+.era-card.pre{background:#F8F6F0}
+.era-card.post{background:#FFF8F0}
+@media(max-width:600px){
+.paradigm,.era-compare{grid-template-columns:1fr}
+.stat-grid{grid-template-columns:1fr 1fr}
+.chart-wrap{height:260px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+<h1>The institutionalization of elastic currency</h1>
+<p class="subtitle">How the Federal Reserve shifted financial risk from private banks to the public domain, and what that means for the architecture of American money.</p>
+<p class="meta">Research thesis · Monetary economics & institutional history · ~10 min read</p>
+</div>
+
+<!-- MODULE 1 -->
+<div class="section">
+<p class="module-label">Module 1</p>
+<h2>The crisis that broke the old system</h2>
+
+<p>Before 1913, the United States had no central bank. No institution existed with the authority to expand the money supply when cash ran short. The country's financial architecture relied on a rigid system: banks held reserves in gold and currency, and when those reserves ran out, there was no backstop. Money was "inelastic," meaning the supply could not flex to meet demand.</p>
+
+<p>This was not a theoretical problem. It produced real collapses, repeatedly.</p>
+
+<div class="stat-grid">
+<div class="stat-card"><div class="number">8</div><div class="label">Banking panics 1863–1913</div></div>
+<div class="stat-card"><div class="number">~50%</div><div class="label">NYSE drop in 1907</div></div>
+<div class="stat-card"><div class="number">10%+</div><div class="label">GDP contraction 1907–08</div></div>
+<div class="stat-card"><div class="number">32%</div><div class="label">Trust deposit decline</div></div>
+</div>
+
+<h3>The 1907 panic: a system without a safety valve</h3>
+
+<p>The Panic of 1907 began with a failed attempt to corner the stock of the United Copper Company. When the scheme collapsed, it triggered a chain reaction. Banks that had lent money to the speculators faced sudden withdrawal demands. Depositors, unable to distinguish healthy banks from insolvent ones, lined up to pull their money out of everything.</p>
+
+<p>Trust companies, which functioned as the "shadow banks" of their era, were at the center of this crisis. They competed aggressively with commercial banks for deposits, offered higher interest rates, and held far lower cash reserves. When the panic hit, they had almost no buffer. The Knickerbocker Trust Company, then the third largest trust in New York, was denied emergency assistance by J.P. Morgan's rescue syndicate and shut its doors. That single closure sent shockwaves through the entire financial system.</p>
+
+<div class="callout">
+<strong>The core problem:</strong> The country had no mechanism to create additional currency during a crisis. Banks were forced to call in loans, liquidate assets at fire sale prices, and turn away depositors, all because the money supply was physically fixed.
+</div>
+
+<p>J.P. Morgan, operating from his private library on Madison Avenue, personally organized a rescue effort. He recruited George F. Baker of First National Bank and James Stillman of National City Bank, examined the books of failing institutions, and decided which ones to save. John D. Rockefeller deposited $10 million of his personal funds into the Union Trust. The Treasury Secretary deposited $37.6 million of the federal government's reserves into New York national banks.</p>
+
+<p>It worked, barely. But the precedent was alarming: the solvency of the American financial system depended on the personal judgment and private wealth of one man. The recession that followed lasted until June 1908, with GDP contracting more than 10%, roughly double the decline of the 2007–08 recession.</p>
+
+<div class="chart-container">
+<div class="chart-title">Banking panics during the national banking era (1863–1913)</div>
+<div class="chart-subtitle">Frequency and severity of panics before a central bank existed</div>
+<div class="chart-wrap"><canvas id="panicChart"></canvas></div>
+</div>
+
+<h3>Jekyll Island: designing the solution in secret</h3>
+
+<p>In November 1910, Senator Nelson Aldrich of Rhode Island organized one of the most consequential meetings in American financial history. Six men boarded a private railcar in Hoboken, New Jersey, under the pretense of a duck hunting trip. They used only first names to prevent staff from identifying them. One attendee carried a borrowed shotgun to maintain the cover story.</p>
+
+<p>The destination was the Jekyll Island Club, off the coast of Georgia, an exclusive retreat whose members included J.P. Morgan, Marshall Field, and William Kissam Vanderbilt. The participants represented the most powerful financial interests in the country.</p>
+
+<div class="timeline">
+<div class="timeline-item"><div class="year">The attendees</div>
+<p><strong>Nelson Aldrich</strong>, chairman of the Senate Finance Committee and a Rockefeller family connection. <strong>Henry Davison</strong>, senior partner at J.P. Morgan & Company. <strong>Paul Warburg</strong>, a partner at Kuhn, Loeb & Company who had studied European central banking systems. <strong>Frank Vanderlip</strong>, president of National City Bank, associated with Rockefeller interests. <strong>A. Piatt Andrew</strong>, Assistant Secretary of the Treasury. <strong>Arthur Shelton</strong>, Aldrich's personal secretary.</p>
+</div>
+<div class="timeline-item"><div class="year">The design</div>
+<p>Over ten days, they drafted a plan for a system of 15 regional reserve banks, each governed by directors from member banks, with the power to issue elastic currency, in other words, the ability to expand the money supply when conditions demanded it. This was the Aldrich Plan.</p>
+</div>
+<div class="timeline-item"><div class="year">The secrecy</div>
+<p>Participants denied the meeting occurred for over twenty years. Frank Vanderlip later wrote: "Discovery, we knew, simply must not happen, or else all our time and effort would be wasted." The revelation didn't become widely known until Aldrich's biography was published in 1930.</p>
+</div>
+</div>
+
+<p>The original Aldrich Plan failed politically. The name "Aldrich" was too closely associated with Wall Street, and Congress rejected it. But Representative Carter Glass and Senator Robert Owen repackaged the same structural framework under different political branding. The essential mechanics survived intact.</p>
+
+<p>On December 23, 1913, President Woodrow Wilson signed the Federal Reserve Act into law. As banker A. Barton Hepburn told the American Bankers Association that year: the measure recognized and adopted the principles of a central bank.</p>
+</div>
+
+<!-- MODULE 2 -->
+<div class="section">
+<p class="module-label">Module 2</p>
+<h2>How banks create money from lending</h2>
+
+<p>The Federal Reserve did not simply create a safety net. It fundamentally altered how money enters the economy. To understand the significance of 1913, you have to understand the mechanism it enabled: credit creation through fractional reserve banking.</p>
+
+<h3>The fractional reserve principle</h3>
+
+<p>Imagine you deposit $10,000 in a bank. You assume the bank stores your cash in a vault. It does not. The bank is legally required to hold only a fraction of your deposit in reserve, historically around 10%, sometimes less. The remaining $9,000 it lends to someone else. That borrower spends the $9,000, and it flows into another bank, which keeps 10% ($900) and lends $8,100. This process repeats.</p>
+
+<div class="diagram-box">
+<div style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;margin-bottom:16px;color:var(--muted)">The money multiplier in action</div>
+<div class="multiplier-visual">
+<div class="deposit-block origin">$10,000<br><span style="font-size:11px;opacity:0.8">Original</span></div>
+<div class="arrow-right">→</div>
+<div class="deposit-block">$9,000<br><span style="font-size:11px;opacity:0.7">Loan 1</span></div>
+<div class="arrow-right">→</div>
+<div class="deposit-block">$8,100<br><span style="font-size:11px;opacity:0.7">Loan 2</span></div>
+<div class="arrow-right">→</div>
+<div class="deposit-block">$7,290<br><span style="font-size:11px;opacity:0.7">Loan 3</span></div>
+<div class="arrow-right">→</div>
+<div class="deposit-block" style="background:transparent;border-style:dashed">$...n<br><span style="font-size:11px;opacity:0.7">Continues</span></div>
+</div>
+<p style="font-family:'DM Sans',sans-serif;font-size:13px;color:var(--muted);margin:16px 0 0">With a 10% reserve requirement, your single $10,000 deposit can generate up to $100,000 in total lending across the banking system. The bank earns interest on every dollar it lends, including the $90,000 it never physically possessed.</p>
+</div>
+
+<p>This is not a conspiracy. It is the documented, legal structure of modern banking. Banks profit by lending money they do not have in their vaults and collecting interest on those loans. The entire system works because depositors rarely demand all their money at once. Statistically, it's stable. Until it isn't.</p>
+
+<h3>The Fed as the engine behind the engine</h3>
+
+<p>Before 1913, this lending structure was constrained by a hard limit: if a bank ran out of reserves, it had nowhere to turn. After 1913, the Federal Reserve removed that constraint. It offered banks two critical capabilities.</p>
+
+<p>First, the discount window. If a bank's reserves ran low from aggressive lending, it could borrow directly from the Federal Reserve at an interest rate set by the Fed. Second, open market operations. The Fed could purchase government securities from banks, injecting new reserves into the system and enabling even more lending.</p>
+
+<p>The practical effect: banks could lend more aggressively because the consequence of over-lending, running out of reserves, was no longer terminal. The Fed would supply the missing liquidity. This is what "elastic currency" means. The money supply stretches to accommodate the lending activity of private banks, with the Federal Reserve providing the elasticity.</p>
+
+<div class="chart-container">
+<div class="chart-title">U.S. money supply expansion (1900–2025)</div>
+<div class="chart-subtitle">M2 money stock in billions of dollars, showing the exponential growth enabled by elastic currency</div>
+<div class="interactive-toggle">
+<button class="toggle-btn active" onclick="setScale('log')">Logarithmic scale</button>
+<button class="toggle-btn" onclick="setScale('linear')">Linear scale</button>
+</div>
+<div class="chart-wrap"><canvas id="m2Chart"></canvas></div>
+</div>
+
+<p>Look at that chart. From 1900 to 1913, the money supply grew slowly and organically, constrained by the physical supply of gold and currency. After 1913, and especially after 1971 when the dollar was fully detached from gold, the curve bends upward with increasing steepness. By 2020, the money supply had reached approximately $15.4 trillion. During the pandemic response alone, the Fed helped expand M2 by roughly $6 trillion in under two years.</p>
+
+<p>This expansion isn't accidental. It's the system functioning as designed. Each new dollar of reserves the Fed creates enables multiple dollars of lending through the multiplier effect. The machinery works exactly as the Jekyll Island architects intended, with one critical difference in who bears the risk.</p>
+</div>
+
+<!-- MODULE 3 -->
+<div class="section">
+<p class="module-label">Module 3</p>
+<h2>The asymmetry: who profits and who pays</h2>
+
+<p>Here is where the architecture of the Federal Reserve produces its most consequential outcome. The system creates a fundamental asymmetry in how risk and reward are distributed between private banks and the public.</p>
+
+<div class="paradigm">
+<div class="paradigm-card heads">
+<div class="icon">↑</div>
+<h4>When bets pay off</h4>
+<p>Banks retain billions in interest income, trading profits, and fees. Shareholders receive dividends. Executives receive bonuses. The gains are private.</p>
+</div>
+<div class="paradigm-card tails">
+<div class="icon">↓</div>
+<h4>When bets fail</h4>
+<p>The Federal Reserve provides emergency liquidity. Treasury funds bail out failing institutions. Taxpayers absorb losses through inflation, reduced purchasing power, or direct expenditure. The losses are public.</p>
+</div>
+</div>
+
+<p>This is not a hypothetical framework. It has played out repeatedly in American financial history, with the 2008 crisis providing the starkest modern example.</p>
+
+<h3>2008: the paradigm in action</h3>
+
+<p>In the years leading up to 2008, banks created and sold increasingly complex mortgage securities, earning enormous fees on each transaction. When the underlying mortgages defaulted en masse, the same institutions that had profited from creating the risk were rescued with public money. The Troubled Asset Relief Program authorized $700 billion in taxpayer funds. The Federal Reserve extended trillions more in emergency lending.</p>
+
+<div class="chart-container">
+<div class="chart-title">The 2008 bailout: where the money went</div>
+<div class="chart-subtitle">Major TARP allocations by category, in billions of dollars</div>
+<div class="chart-wrap"><canvas id="bailoutChart"></canvas></div>
+</div>
+
+<p>The official narrative is that taxpayers were eventually "paid back." And in narrow accounting terms, some TARP investments did generate positive returns. But research from the University of Michigan's Ross School of Business found that the return on TARP was not commensurate with the risk taxpayers bore. The gains from the economic recovery were captured disproportionately by the recipient banks, while the public bore the downside risk that made the recovery possible. A study by economist Deborah Lucas at MIT estimated the total direct cost of crisis related bailouts at approximately $500 billion, or 3.5% of GDP.</p>
+
+<p>Meanwhile, analysis from the World Bank estimated that the implicit government guarantee enjoyed by large banks provided them with an annual funding cost advantage worth approximately $4 billion per year before the crisis, increasing to $60 billion during the crisis, and peaking above $84 billion in 2008 alone. That subsidy came directly from taxpayers, whether they knew it or not.</p>
+
+<div class="callout">
+<strong>The structural trap:</strong> The Federal Reserve's role as lender of last resort means that banks can take outsized risks knowing that failure will be socialized. This dynamic, economists call it moral hazard, was supposed to be addressed by the Dodd-Frank Act of 2010. But the 2023 collapse of Silicon Valley Bank, where the FDIC made all depositors whole including those far above the $250,000 insurance limit, suggests the pattern remains fundamentally unchanged.
+</div>
+
+<h3>Before and after: what 1913 actually changed</h3>
+
+<div class="era-compare">
+<div class="era-card pre">
+<h4>Before 1913</h4>
+<ul>
+<li>Banks bore direct consequences of bad lending</li>
+<li>Bank runs could destroy institutions overnight</li>
+<li>No mechanism to expand currency supply</li>
+<li>Private rescues depended on individual wealth</li>
+<li>8 major panics in 50 years</li>
+</ul>
+</div>
+<div class="era-card post">
+<h4>After 1913</h4>
+<ul>
+<li>Fed provides emergency reserves to struggling banks</li>
+<li>Deposit insurance reduces bank run incentives</li>
+<li>Money supply can expand to meet demand</li>
+<li>Public institutions absorb systemic risk</li>
+<li>Major crises still occur (1929, 2008, 2023)</li>
+</ul>
+</div>
+</div>
+
+<div class="chart-container">
+<div class="chart-title">U.S. bank failure rates across eras</div>
+<div class="chart-subtitle">Average annual bank failures by period, showing the structural shift in failure patterns</div>
+<div class="chart-wrap"><canvas id="failureChart"></canvas></div>
+</div>
+
+<p>The chart above tells a complex story. The Federal Reserve and FDIC did succeed in reducing the frequency of individual bank failures during stable periods. Between 1941 and 1979, an average of only 5.3 banks failed per year. But the system did not eliminate systemic crises. It transformed them. Instead of many small failures punishing individual bad actors, the post-1913 system tends to allow risk to accumulate silently until it erupts in massive, system-wide events that require public intervention, as in 1929–33, 2008, and to a lesser extent, 2023.</p>
+</div>
+
+<!-- CONCLUSION -->
+<div class="section">
+<p class="module-label">Conclusion</p>
+<h2>The architecture of transferred risk</h2>
+
+<p>The Federal Reserve was not created to solve a fake problem. The inelasticity of the pre-1913 monetary system was real, and its consequences were severe. The 1907 panic proved that a modern economy could not function when the money supply was physically rigid and no institution could provide emergency liquidity.</p>
+
+<p>But the solution introduced its own structural distortion. The architects at Jekyll Island, representing the Morgan, Rockefeller, and Warburg financial interests, designed a system that would protect banks from the consequences of their own lending decisions. The Federal Reserve Act of 1913 institutionalized that protection, granting a central bank the power to create money and lend it to private institutions that had exhausted their own reserves.</p>
+
+<p>The result is a system where credit creation generates private wealth during expansions and public costs during contractions. Banks earn interest on money they create through lending. When that lending proves reckless, the Federal Reserve and the Treasury provide the backstop, funded ultimately by the currency's purchasing power or by direct taxpayer expenditure.</p>
+
+<p>This is not a broken system. It is the system working as designed. The question is whether that design serves the public interest, or whether it has become a mechanism for privatizing gains while socializing losses at a scale that the original architects could not have imagined.</p>
+
+<p>The M2 money supply now exceeds $21 trillion. The Federal Reserve's balance sheet has expanded from under $1 trillion before 2008 to over $7 trillion. Each expansion reflects a moment when the elastic currency stretched to absorb risk that originated in the private banking sector. Each contraction that follows squeezes the real economy.</p>
+
+<p>Understanding this architecture is not optional for anyone who wants to understand why prices rise, why wages lag, why financial crises recur on a generational cycle, or why the wealthiest institutions in the country were the first to receive public assistance during the worst economic downturn since the Great Depression.</p>
+
+<p>The Federal Reserve answered the question of 1907. But the answer created a new question that remains unanswered: who should bear the cost of financial stability?</p>
+</div>
+
+<div class="footnote">
+<p>Sources include: <a href="https://libertystreeteconomics.newyorkfed.org/2016/11/the-final-crisis-chronicle-the-panic-of-1907-and-the-birth-of-the-fed/" target="_blank" rel="noopener noreferrer">Federal Reserve Bank of New York</a>, <a href="https://www.federalreservehistory.org/essays/jekyll-island-conference" target="_blank" rel="noopener noreferrer">Federal Reserve History archives</a>, <a href="https://www.fdic.gov/bank/historical/bank/" target="_blank" rel="noopener noreferrer">FDIC historical records</a>, <a href="https://www.pewresearch.org/politics/2025/12/04/public-trust-in-government-1958-2025/" target="_blank" rel="noopener noreferrer">Pew Research Center</a>, <a href="https://www.imf.org/en/news/articles/2015/09/28/04/53/sopol033114a" target="_blank" rel="noopener noreferrer">IMF Global Financial Stability research</a>, <a href="https://mitsloan.mit.edu/ideas-made-to-matter/heres-how-much-2008-bailouts-really-cost" target="_blank" rel="noopener noreferrer">MIT Sloan School of Management bailout cost analyses</a>, <a href="https://michiganross.umich.edu/news/bailout-financial-sector-was-bad-deal-taxpayers-new-paper-concludes" target="_blank" rel="noopener noreferrer">University of Michigan Ross School of Business TARP research</a>, <a href="https://crsreports.congress.gov/product/pdf/R/R41427" target="_blank" rel="noopener noreferrer">Congressional Research Service reports</a>. M2 data sourced from <a href="https://fred.stlouisfed.org/series/M2SL" target="_blank" rel="noopener noreferrer">Federal Reserve Economic Data (FRED), St. Louis Fed</a>.</p>
+</div>
+
+</div>
+
+<script>
+// Chart 1: Banking Panics
+new Chart(document.getElementById('panicChart'), {
+type: 'bar',
+data: {
+labels: ['1873', '1884', '1890', '1893', '1896', '1901', '1907', '1910'],
+datasets: [{
+label: 'Severity index',
+data: [7, 4, 2, 8, 3, 2, 9, 3],
+backgroundColor: function(ctx) {
+return ctx.raw >= 7 ? '#8B4513' : ctx.raw >= 4 ? '#C4956A' : '#DCC8B0';
+},
+borderRadius: 4,
+barPercentage: 0.6
+}]
+},
+options: {
+responsive: true,
+maintainAspectRatio: false,
+plugins: {
+legend: { display: false },
+tooltip: {
+callbacks: {
+label: function(ctx) {
+const labels = {
+'1873': 'Jay Cooke failure, 100+ banks closed',
+'1884': 'Grant & Ward collapse, regional panic',
+'1890': 'Decker Howell failure, brief panic',
+'1893': 'Gold reserve crisis, 500+ banks failed',
+'1896': 'Silver crisis, localized disruption',
+'1901': 'Northern Pacific corner, brief crash',
+'1907': 'Knickerbocker crisis, GDP fell 10%+',
+'1910': 'Localized credit tightness'
+};
+return labels[ctx.label] || '';
+}
+}
+}
+},
+scales: {
+y: {
+beginAtZero: true,
+max: 10,
+grid: { color: '#E8E6DE' },
+ticks: { 
+font: { family: 'DM Sans', size: 12 },
+callback: function(v) {
+return v === 0 ? 'Low' : v === 5 ? 'Medium' : v === 10 ? 'Severe' : '';
+}
+}
+},
+x: {
+grid: { display: false },
+ticks: { font: { family: 'DM Sans', size: 12 } }
+}
+}
+}
+});
+
+// Chart 2: M2 Money Supply
+const m2Data = {
+labels: ['1900','1910','1920','1930','1940','1950','1960','1970','1980','1990','2000','2010','2020','2025'],
+datasets: [{
+label: 'M2 money supply ($B)',
+data: [6.6, 13.3, 35.7, 46.6, 55.2, 150, 312, 628, 1600, 3279, 4930, 8800, 19400, 21700],
+borderColor: '#8B4513',
+backgroundColor: 'rgba(139,69,19,0.08)',
+fill: true,
+tension: 0.3,
+pointRadius: 4,
+pointBackgroundColor: '#8B4513',
+borderWidth: 2
+}]
+};
+
+let m2Chart = new Chart(document.getElementById('m2Chart'), {
+type: 'line',
+data: m2Data,
+options: {
+responsive: true,
+maintainAspectRatio: false,
+plugins: {
+legend: { display: false },
+tooltip: {
+callbacks: {
+label: function(ctx) {
+return '$' + ctx.raw.toLocaleString() + ' billion';
+}
+}
+},
+annotation: {}
+},
+scales: {
+y: {
+type: 'logarithmic',
+grid: { color: '#E8E6DE' },
+ticks: {
+font: { family: 'DM Sans', size: 11 },
+callback: function(v) {
+if ([1, 10, 100, 1000, 10000].includes(v)) return '$' + v.toLocaleString() + 'B';
+return '';
+}
+}
+},
+x: {
+grid: { display: false },
+ticks: { font: { family: 'DM Sans', size: 12 }, maxRotation: 0 }
+}
+}
+}
+});
+
+function setScale(type) {
+document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+event.target.classList.add('active');
+m2Chart.options.scales.y.type = type === 'log' ? 'logarithmic' : 'linear';
+if (type === 'linear') {
+m2Chart.options.scales.y.ticks.callback = function(v) {
+return '$' + (v/1000).toFixed(0) + 'T';
+};
+} else {
+m2Chart.options.scales.y.ticks.callback = function(v) {
+if ([1, 10, 100, 1000, 10000].includes(v)) return '$' + v.toLocaleString() + 'B';
+return '';
+};
+}
+m2Chart.update();
+}
+
+// Chart 3: Bailout
+new Chart(document.getElementById('bailoutChart'), {
+type: 'bar',
+data: {
+labels: ['Bank capital (CPP)', 'AIG', 'Auto industry', 'Mortgage programs', 'Other TARP'],
+datasets: [{
+label: 'Billions allocated',
+data: [205, 68, 80, 46, 28],
+backgroundColor: ['#8B4513','#A0522D','#C4956A','#DCC8B0','#E8DDD0'],
+borderRadius: 4,
+barPercentage: 0.65
+}]
+},
+options: {
+indexAxis: 'y',
+responsive: true,
+maintainAspectRatio: false,
+plugins: {
+legend: { display: false },
+tooltip: {
+callbacks: {
+label: function(ctx) { return '$' + ctx.raw + ' billion'; }
+}
+}
+},
+scales: {
+y: {
+grid: { display: false },
+ticks: { font: { family: 'DM Sans', size: 12 } }
+},
+x: {
+grid: { color: '#E8E6DE' },
+ticks: {
+font: { family: 'DM Sans', size: 11 },
+callback: function(v) { return '$' + v + 'B'; }
+}
+}
+}
+}
+});
+
+// Chart 4: Bank Failures
+new Chart(document.getElementById('failureChart'), {
+type: 'bar',
+data: {
+labels: ['1900–1913\n(Pre-Fed)', '1914–1920\n(Early Fed)', '1921–1929\n(Fed era)', '1930–1933\n(Depression)', '1934–1940\n(FDIC era)', '1941–1979\n(Stability)', '1980–1995\n(S&L crisis)', '1996–2006\n(Quiet era)', '2007–2014\n(GFC)', '2015–2022\n(Modern)'],
+datasets: [{
+label: 'Avg. annual failures',
+data: [85, 48, 692, 2276, 51, 5.3, 315, 4.3, 72, 3.6],
+backgroundColor: function(ctx) {
+const vals = [85, 48, 692, 2276, 51, 5.3, 315, 4.3, 72, 3.6];
+const v = vals[ctx.dataIndex];
+if (v > 500) return '#8B4513';
+if (v > 50) return '#C4956A';
+return '#DCC8B0';
+},
+borderRadius: 4,
+barPercentage: 0.7
+}]
+},
+options: {
+responsive: true,
+maintainAspectRatio: false,
+plugins: {
+legend: { display: false },
+tooltip: {
+callbacks: {
+label: function(ctx) {
+return Math.round(ctx.raw) + ' banks/year avg.';
+}
+}
+}
+},
+scales: {
+y: {
+type: 'logarithmic',
+grid: { color: '#E8E6DE' },
+ticks: {
+font: { family: 'DM Sans', size: 11 },
+callback: function(v) {
+if ([1, 10, 100, 1000].includes(v)) return v.toLocaleString();
+return '';
+}
+}
+},
+x: {
+grid: { display: false },
+ticks: { 
+font: { family: 'DM Sans', size: 10 },
+maxRotation: 45,
+autoSkip: false
+}
+}
+}
+}
+});
+</script>
+</body>
+</html>
